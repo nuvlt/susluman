@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Günlük davranışlarınızı Kur'an öğretileriyle karşılaştırın. Mizahi ve saygılı bir farkındalık testi.">
+    <title>Ne Kadar Müslümansın? | Davranış Farkındalık Testi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Açılış Ekranı -->
+        <div id="welcome-screen" class="screen active">
+            <div class="content">
+                <h1 class="title">🌙 Ne Kadar Müslümansın?</h1>
+                <p class="subtitle">Günlük davranışlarınızı keşfedin</p>
+                <div class="info-box">
+                    <p>Bu test <strong>iman ölçmez</strong>, kimseyi yargılamaz.</p>
+                    <p>Sadece günlük hayattaki davranışlarınızı Kur'an öğretileriyle karşılaştırır.</p>
+                    <p>20 soru • 2 dakika • Mizahi & Saygılı</p>
+                </div>
+                <button class="btn btn-primary" onclick="app.startTest()">Teste Başla</button>
+            </div>
+        </div>
+
+        <!-- Test Ekranı -->
+        <div id="test-screen" class="screen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+                <span class="progress-text" id="progress-text">1 / 20</span>
+            </div>
+            
+            <div class="content">
+                <div class="category-badge" id="category-badge"></div>
+                <h2 class="question-text" id="question-text"></h2>
+                <div class="options" id="options"></div>
+                
+                <div class="feedback" id="feedback"></div>
+                
+                <button class="next-button" id="next-button" onclick="app.nextQuestion()">
+                    Sonraki Soru →
+                </button>
+                
+                <div class="skip-timer" id="skip-timer">
+                    <div>Otomatik geçiş...</div>
+                    <div class="timer-bar">
+                        <div class="timer-fill" id="timer-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sonuç Ekranı -->
+        <div id="result-screen" class="screen">
+            <div class="content">
+                <h1 class="title">🎯 Test Tamamlandı!</h1>
+                
+                <div class="total-score" id="total-score"></div>
+                
+                <div class="categories-result" id="categories-result"></div>
+                
+                <div class="comparison" id="comparison"></div>
+                
+                <div class="share-section">
+                    <h3>Sonucunu Paylaş</h3>
+                    <div class="share-buttons">
+                        <button class="btn btn-whatsapp" onclick="app.shareWhatsApp()">
+                            WhatsApp
+                        </button>
+                        <button class="btn btn-twitter" onclick="app.shareTwitter()">
+                            Twitter/X
+                        </button>
+                        <button class="btn btn-copy" onclick="app.copyLink()">
+                            Link Kopyala
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="app.restart()">Testi Yeniden Başlat</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
