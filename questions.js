@@ -8,7 +8,7 @@ const questions = [
             { text: "Vaktinde düzenli kılıyorum", score: 10 },
             { text: "Kaza ediyorum ama telafi ediyorum", score: 7 },
             { text: "Bazen kılıyorum bazen kaçırıyorum", score: 4 },
-            { text: "Sadece cuma veya bayramlarda kılıyorum", score: 1 }
+            { text: "Namaz kılmıyorum", score: 1 }
         ],
         feedback: "Namaz, Müslüman için günün direğidir.",
         verse: "Namazı dosdoğru kılın. (Bakara 43)"
