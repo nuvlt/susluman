@@ -111,7 +111,7 @@ class MuslimTest {
         // Auto advance after 5 seconds
         this.autoNextTimer = setTimeout(() => {
             this.nextQuestion();
-        }, 5000);
+        }, 10000);
     }
 
     showFeedback(question) {
