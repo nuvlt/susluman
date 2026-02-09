@@ -204,7 +204,7 @@ class MuslimTest {
         const avgScore = stats.average;
         
         document.getElementById('comparison').innerHTML = `
-            <h3>📊 Genel İstatistikler</h3>
+            <h3>📊 Ne kadar müslümansın?</h3>
             <div class="comparison-stats">
                 <div class="stat">
                     <div class="stat-value">${userScore}%</div>
