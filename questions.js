@@ -8,7 +8,7 @@ const questions = [
             { text: "Vaktinde düzenli kılıyorum", score: 10 },
             { text: "Kaza ediyorum ama telafi ediyorum", score: 7 },
             { text: "Bazen kılıyorum bazen kaçırıyorum", score: 4 },
-            { text: "Namaz kılmıyorum", score: 1 }
+            { text: "Namaz kılmıyorum", score: 0 }
         ],
         feedback: "Namaz, Müslüman için günün direğidir.",
         verse: "Namazı dosdoğru kılın. (Bakara 43)"
@@ -21,7 +21,7 @@ const questions = [
             { text: "Her gün düzenli okuyorum", score: 10 },
             { text: "Haftada birkaç kez okuyorum", score: 7 },
             { text: "Sadece Ramazan'da okuyorum", score: 4 },
-            { text: "Nadiren açarım", score: 1 }
+            { text: "Hiç açmam", score: 0 }
         ],
         feedback: "Kur'an, kalplere şifa ve hidayettir.",
         verse: "Kur'an'dan, müminler için şifa ve rahmet olanı indiriyoruz. (İsra 82)"
