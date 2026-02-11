@@ -111,7 +111,7 @@ class MuslimTest {
         // Auto advance after 5 seconds
         this.autoNextTimer = setTimeout(() => {
             this.nextQuestion();
-        }, 10000);
+        }, 5000);
     }
 
     showFeedback(question) {
@@ -204,7 +204,7 @@ class MuslimTest {
         const avgScore = stats.average;
         
         document.getElementById('comparison').innerHTML = `
-            <h3>📊 Ne kadar müslümansın?</h3>
+            <h3>📊 Genel İstatistikler</h3>
             <div class="comparison-stats">
                 <div class="stat">
                     <div class="stat-value">${userScore}%</div>
