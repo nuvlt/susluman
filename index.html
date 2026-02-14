@@ -18,6 +18,7 @@
                     <p>Bu test <strong>iman ölçmez</strong>, kimseyi yargılamaz.</p>
                     <p>Sadece günlük hayattaki davranışlarınızı Kur'an öğretileriyle karşılaştırır.</p>
                     <p>20 soru • 2 dakika • Mizahi & Saygılı</p>
+                    <p>by NOA</p>
                 </div>
                 <button class="btn btn-primary" onclick="app.startTest()">Teste Başla</button>
             </div>
@@ -26,8 +27,20 @@
         <!-- Test Ekranı -->
         <div id="test-screen" class="screen">
             <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
+                <div class="journey-container">
+                    <div class="journey-path">
+                        <div class="journey-fill" id="journey-fill"></div>
+                    </div>
+                    <div class="journey-icons" id="journey-icons">
+                        <span class="journey-icon">🌱</span>
+                        <span class="journey-icon">🌿</span>
+                        <span class="journey-icon">🌳</span>
+                        <span class="journey-icon">🌲</span>
+                        <span class="journey-icon">🕌</span>
+                    </div>
+                </div>
                 <span class="progress-text" id="progress-text">1 / 20</span>
+                <span class="progress-label" id="progress-label">Yolculuk Başlıyor...</span>
             </div>
             
             <div class="content">
@@ -56,6 +69,8 @@
                 <h1 class="title">🎯 Test Tamamlandı!</h1>
                 
                 <div class="total-score" id="total-score"></div>
+                
+                <div class="story-summary" id="story-summary"></div>
                 
                 <div class="categories-result" id="categories-result"></div>
                 
