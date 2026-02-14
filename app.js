@@ -30,12 +30,49 @@ class MuslimTest {
         document.getElementById(screenId).classList.add('active');
     }
 
+    updateJourneyProgress() {
+        const progress = ((this.currentQuestion + 1) / questions.length) * 100;
+        const journeyFill = document.getElementById('journey-fill');
+        const icons = document.querySelectorAll('.journey-icon');
+        
+        // Update progress bar
+        journeyFill.style.width = progress + '%';
+        
+        // Update icons based on progress
+        const iconThresholds = [0, 25, 50, 75, 100];
+        icons.forEach((icon, index) => {
+            icon.classList.remove('active', 'completed');
+            if (progress >= iconThresholds[index]) {
+                if (progress < iconThresholds[index + 1] || index === icons.length - 1) {
+                    icon.classList.add('active');
+                } else {
+                    icon.classList.add('completed');
+                }
+            }
+        });
+        
+        // Update label
+        const labels = [
+            "Yolculuk Başlıyor...",
+            "Gelişiyorsun 🌱",
+            "İyi Gidiyorsun 🌿",
+            "Neredeyse Bitti 🌳",
+            "Son Adım! 🌲"
+        ];
+        
+        let labelIndex = Math.floor((this.currentQuestion / questions.length) * 4);
+        if (this.currentQuestion === questions.length - 1) labelIndex = 4;
+        
+        document.getElementById('progress-label').textContent = labels[labelIndex];
+    }
+
     displayQuestion() {
         const question = questions[this.currentQuestion];
-        const progress = ((this.currentQuestion + 1) / questions.length) * 100;
         
-        document.getElementById('progress-fill').style.width = progress + '%';
+        // Update progress
+        this.updateJourneyProgress();
         document.getElementById('progress-text').textContent = `${this.currentQuestion + 1} / ${questions.length}`;
+        
         document.getElementById('category-badge').textContent = question.category;
         document.getElementById('question-text').textContent = question.question;
         
@@ -145,6 +182,70 @@ class MuslimTest {
         return Math.round((totalScore / maxScore) * 100);
     }
 
+    getEmojiRating(percentage) {
+        if (percentage >= 90) return { emoji: '⭐⭐⭐⭐⭐', text: 'Mükemmel!' };
+        if (percentage >= 75) return { emoji: '⭐⭐⭐⭐', text: 'Çok İyi!' };
+        if (percentage >= 60) return { emoji: '⭐⭐⭐', text: 'İyi!' };
+        if (percentage >= 45) return { emoji: '⭐⭐', text: 'Gelişmeli' };
+        return { emoji: '⭐', text: 'Dikkat!' };
+    }
+
+    generateStory(totalScore, categoryScores) {
+        let strengths = [];
+        let weaknesses = [];
+        
+        Object.keys(categoryScores).forEach(category => {
+            const catData = categoryScores[category];
+            const percentage = Math.round((catData.score / catData.max) * 100);
+            
+            if (percentage >= 75) {
+                strengths.push({ category, percentage });
+            } else if (percentage < 50) {
+                weaknesses.push({ category, percentage });
+            }
+        });
+        
+        // Sort by percentage
+        strengths.sort((a, b) => b.percentage - a.percentage);
+        weaknesses.sort((a, b) => a.percentage - b.percentage);
+        
+        let story = '';
+        
+        // Güçlü yönler
+        if (strengths.length > 0) {
+            const topStrength = strengths[0];
+            story += `<span class="highlight">${topStrength.category}</span> konusunda gerçekten güçlüsün (%${topStrength.percentage}). `;
+            
+            if (strengths.length > 1) {
+                story += `<span class="success">${strengths[1].category}</span> alanında da iyi bir performans gösteriyorsun. `;
+            }
+        }
+        
+        // Zayıf yönler
+        if (weaknesses.length > 0) {
+            const mainWeakness = weaknesses[0];
+            story += `<br><br>Ancak <span class="warning">${mainWeakness.category}</span> konusunda daha dikkatli olmalısın (%${mainWeakness.percentage}). `;
+            
+            if (mainWeakness.category === "Haram ve Günah") {
+                story += 'Bu alan özellikle önemli çünkü doğrudan ahiret hayatını etkiliyor. ';
+            } else if (mainWeakness.category === "İbadet Alışkanlıkları") {
+                story += 'İbadetler, Allah\'la aramızdaki en güçlü bağdır. ';
+            }
+        }
+        
+        // Motivasyon
+        story += '<br><br>';
+        if (totalScore >= 75) {
+            story += 'Doğru yoldasın, Allah senden razı olsun! 🌟 Küçük adımlarla daha da iyileşebilirsin.';
+        } else if (totalScore >= 50) {
+            story += 'Yolculuğun devam ediyor. Her gün yeni bir fırsat, her an bir başlangıç... 🌱';
+        } else {
+            story += 'Hatırla: En uzun yolculuk bile tek bir adımla başlar. Sen de o ilk adımı attın! 🚀';
+        }
+        
+        return story;
+    }
+
     showResults() {
         this.showScreen('result-screen');
         
@@ -153,6 +254,13 @@ class MuslimTest {
         document.getElementById('total-score').innerHTML = `
             <div class="score-number">${totalScore}%</div>
             <div class="score-label">${this.getScoreMessage(totalScore)}</div>
+        `;
+        
+        // Generate story
+        const story = this.generateStory(totalScore, this.categoryScores);
+        document.getElementById('story-summary').innerHTML = `
+            <h3>📖 Senin Hikâyen</h3>
+            <p>${story}</p>
         `;
         
         this.displayCategoryScores();
@@ -180,22 +288,40 @@ class MuslimTest {
         const container = document.getElementById('categories-result');
         container.innerHTML = '<h3 style="margin-bottom: 20px; color: #eaeaea;">Kategori Detayları</h3>';
         
-        Object.keys(this.categoryScores).forEach(category => {
+        Object.keys(this.categoryScores).forEach((category, index) => {
             const catData = this.categoryScores[category];
             const percentage = Math.round((catData.score / catData.max) * 100);
+            const emojiRating = this.getEmojiRating(percentage);
             
             const categoryDiv = document.createElement('div');
             categoryDiv.className = 'category-item';
             categoryDiv.innerHTML = `
                 <div class="category-header">
                     <span class="category-name">${category}</span>
-                    <span class="category-score">${percentage}%</span>
+                    <div class="category-score-wrapper">
+                        <span class="category-score">${percentage}%</span>
+                        <span class="category-emoji" id="emoji-${index}"></span>
+                    </div>
                 </div>
                 <div class="category-bar">
                     <div class="category-bar-fill" style="width: ${percentage}%"></div>
                 </div>
             `;
             container.appendChild(categoryDiv);
+            
+            // Animate emoji stars
+            setTimeout(() => {
+                const emojiContainer = document.getElementById(`emoji-${index}`);
+                const stars = emojiRating.emoji.split('');
+                stars.forEach((star, starIndex) => {
+                    setTimeout(() => {
+                        const starSpan = document.createElement('span');
+                        starSpan.className = 'emoji-star filled';
+                        starSpan.textContent = star;
+                        emojiContainer.appendChild(starSpan);
+                    }, starIndex * 100);
+                });
+            }, index * 200);
         });
     }
 
