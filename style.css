@@ -26,13 +26,13 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 15px;
 }
 
 .screen {
@@ -59,14 +59,14 @@ body {
 .content {
     background: var(--bg-card);
     border-radius: 20px;
-    padding: 30px;
+    padding: 20px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
 .title {
-    font-size: 2rem;
+    font-size: 1.6rem;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     background: linear-gradient(135deg, #29a19c 0%, #97b498 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -76,16 +76,16 @@ body {
 .subtitle {
     text-align: center;
     color: var(--text-muted);
-    font-size: 1.1rem;
-    margin-bottom: 25px;
+    font-size: 1rem;
+    margin-bottom: 20px;
 }
 
 .info-box {
     background: rgba(41, 161, 156, 0.1);
     border-left: 4px solid var(--accent);
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
-    margin: 25px 0;
+    margin: 20px 0;
 }
 
 .info-box p {
@@ -101,8 +101,8 @@ body {
 
 .btn {
     width: 100%;
-    padding: 16px 24px;
-    font-size: 1.1rem;
+    padding: 14px 20px;
+    font-size: 1rem;
     font-weight: 600;
     border: none;
     border-radius: 12px;
@@ -128,14 +128,14 @@ body {
 /* Progress Bar */
 .progress-bar {
     background: var(--bg-card);
-    padding: 25px 20px;
+    padding: 20px 15px;
     border-radius: 15px 15px 0 0;
     position: relative;
 }
 
 .journey-container {
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .journey-path {
@@ -234,8 +234,8 @@ body {
 }
 
 .question-text {
-    font-size: 1.3rem;
-    margin-bottom: 30px;
+    font-size: 1.15rem;
+    margin-bottom: 20px;
     line-height: 1.5;
     color: var(--text-light);
 }
@@ -243,17 +243,17 @@ body {
 .options {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .option {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
     border: 2px solid var(--border);
-    padding: 18px 24px;
-    border-radius: 16px;
+    padding: 14px 18px;
+    border-radius: 14px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     text-align: left;
     position: relative;
     overflow: hidden;
@@ -301,8 +301,8 @@ body {
 
 .feedback {
     display: none;
-    margin-top: 25px;
-    padding: 20px;
+    margin-top: 20px;
+    padding: 15px;
     background: rgba(41, 161, 156, 0.1);
     border-left: 4px solid var(--accent);
     border-radius: 10px;
@@ -399,14 +399,14 @@ body {
 /* Result Screen */
 .total-score {
     text-align: center;
-    padding: 30px;
+    padding: 25px;
     background: rgba(41, 161, 156, 0.1);
     border-radius: 15px;
-    margin: 25px 0;
+    margin: 20px 0;
 }
 
 .total-score .score-number {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: bold;
     background: linear-gradient(135deg, var(--accent) 0%, var(--primary-light) 100%);
     -webkit-background-clip: text;
@@ -416,12 +416,12 @@ body {
 
 .total-score .score-label {
     color: var(--text-muted);
-    font-size: 1.1rem;
-    margin-top: 10px;
+    font-size: 1rem;
+    margin-top: 8px;
 }
 
 .categories-result {
-    margin: 25px 0;
+    margin: 20px 0;
 }
 
 .category-item {
@@ -489,35 +489,35 @@ body {
 
 .comparison {
     background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
+    padding: 15px;
     border-radius: 12px;
-    margin: 25px 0;
+    margin: 20px 0;
     text-align: center;
 }
 
 .story-summary {
     background: linear-gradient(135deg, rgba(41, 161, 156, 0.15) 0%, rgba(44, 95, 45, 0.15) 100%);
-    padding: 25px;
+    padding: 20px;
     border-radius: 15px;
-    margin: 25px 0;
+    margin: 20px 0;
     border-left: 4px solid var(--accent);
 }
 
 .story-summary h3 {
     color: var(--text-light);
-    margin-bottom: 15px;
-    font-size: 1.3rem;
+    margin-bottom: 12px;
+    font-size: 1.15rem;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .story-summary p {
     color: var(--text-light);
-    line-height: 1.8;
-    font-size: 1.05rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
     text-align: left;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .story-summary .highlight {
@@ -552,25 +552,26 @@ body {
 }
 
 .stat-value {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: bold;
     color: var(--accent);
 }
 
 .stat-label {
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-top: 5px;
 }
 
 .share-section {
-    margin: 30px 0;
+    margin: 25px 0;
 }
 
 .share-section h3 {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     color: var(--text-light);
+    font-size: 1.05rem;
 }
 
 .share-buttons {
