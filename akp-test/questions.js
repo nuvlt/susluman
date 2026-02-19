@@ -89,12 +89,10 @@ const questions = [
     {
         id: 7,
         category: "Dış Politika",
-        question: "Abdullah Öcalan son olarak ne zaman avukatlarıyla görüştü?",
+        question: "Abdullah Öcalan'ı AKP ve MHP dışarı çıkarmaya çalışıyor mu?",
         options: [
-            { text: "2019", score: 0 },
-            { text: "2021", score: 0 },
-            { text: "2023", score: 10, correct: true },
-            { text: "Hala görüşemiyor", score: 0 }
+            { text: "Evet", score: 10, correct: true },
+            { text: "Hayır", score: 0 }
         ],
         feedback: "2023'te DEM Parti heyeti ile görüşme yapıldı.",
         info: "2015-2023: Uzun görüşme yasağı | 2023: Yeni süreç | 2024: Meclis konuşması gündem oldu",
