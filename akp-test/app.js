@@ -90,6 +90,7 @@ class MuslimTest {
         // Reset feedback and buttons
         document.getElementById('feedback').classList.remove('show');
         document.getElementById('next-button').classList.remove('show');
+        document.getElementById('share-question-btn').classList.remove('show');
         document.getElementById('skip-timer').classList.remove('show');
         
         // Clear any existing timer
@@ -153,21 +154,37 @@ class MuslimTest {
 
     showFeedback(question) {
         const feedbackDiv = document.getElementById('feedback');
-        
-        // Check if answer was correct
-        const selectedAnswer = this.answers[this.answers.length - 1];
-        const isCorrect = selectedAnswer.score === 10;
-        
-        const resultIcon = isCorrect ? '✅' : '❌';
-        const resultText = isCorrect ? 'Doğru!' : 'Yanlış!';
-        
         feedbackDiv.innerHTML = `
-            <div style="font-size: 1.5rem; margin-bottom: 10px;">${resultIcon} ${resultText}</div>
-            <p><strong>${question.feedback}</strong></p>
-            <p style="margin-top: 10px;">${question.info}</p>
-            <p class="verse">${question.source}</p>
+            <p>${question.feedback}</p>
+            <p class="verse">${question.verse}</p>
         `;
         feedbackDiv.classList.add('show');
+        
+        // Show share question button
+        document.getElementById('share-question-btn').classList.add('show');
+    }
+
+    shareCurrentQuestion() {
+        const question = questions[this.currentQuestion];
+        const testName = document.querySelector('.title').textContent;
+        const text = `❓ ${testName}\n\n${question.question}\n\nSen ne düşünüyorsun? Teste katıl!`;
+        const url = window.location.href;
+        
+        // Copy to clipboard
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text + '\n\n' + url).then(() => {
+                this.showToast('Soru kopyalandı! Arkadaşına gönder 📤');
+            });
+        } else {
+            // Fallback
+            const textArea = document.createElement('textarea');
+            textArea.value = text + '\n\n' + url;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            this.showToast('Soru kopyalandı! Arkadaşına gönder 📤');
+        }
     }
 
     nextQuestion() {
@@ -215,6 +232,7 @@ class MuslimTest {
             }
         });
         
+        // Sort by percentage
         strengths.sort((a, b) => b.percentage - a.percentage);
         weaknesses.sort((a, b) => a.percentage - b.percentage);
         
@@ -223,31 +241,33 @@ class MuslimTest {
         // Güçlü yönler
         if (strengths.length > 0) {
             const topStrength = strengths[0];
-            story += `<span class="highlight">${topStrength.category}</span> konusundaki kararları iyi biliyorsun (%${topStrength.percentage}). `;
+            story += `<span class="highlight">${topStrength.category}</span> konusunda gerçekten güçlüsün (%${topStrength.percentage}). `;
+            
+            if (strengths.length > 1) {
+                story += `<span class="success">${strengths[1].category}</span> alanında da iyi bir performans gösteriyorsun. `;
+            }
         }
         
         // Zayıf yönler
         if (weaknesses.length > 0) {
             const mainWeakness = weaknesses[0];
-            story += `Ancak <span class="warning">${mainWeakness.category}</span> konusunda bilgi eksikliklerin var (%${mainWeakness.percentage}). `;
+            story += `<br><br>Ancak <span class="warning">${mainWeakness.category}</span> konusunda daha dikkatli olmalısın (%${mainWeakness.percentage}). `;
             
-            if (mainWeakness.category === "Ekonomik Kararlar") {
-                story += 'Bu kararlar günlük hayatı doğrudan etkiliyor. ';
-            } else if (mainWeakness.category === "Dış Politika") {
-                story += 'Dış politika kararları ülkenin uluslararası konumunu belirliyor. ';
-            } else if (mainWeakness.category === "Medya & Özgürlükler") {
-                story += 'İfade özgürlüğü demokrasinin temel taşıdır. ';
+            if (mainWeakness.category === "Haram ve Günah") {
+                story += 'Bu alan özellikle önemli çünkü doğrudan ahiret hayatını etkiliyor. ';
+            } else if (mainWeakness.category === "İbadet Alışkanlıkları") {
+                story += 'İbadetler, Allah\'la aramızdaki en güçlü bağdır. ';
             }
         }
         
         // Motivasyon
         story += '<br><br>';
         if (totalScore >= 75) {
-            story += 'AKP dönemini iyi tanıyorsun. Bu bilgilerle bilinçli değerlendirme yapabilirsin. 📚';
+            story += 'Doğru yoldasın, Allah senden razı olsun! 🌟 Küçük adımlarla daha da iyileşebilirsin.';
         } else if (totalScore >= 50) {
-            story += 'Bazı önemli gelişmeleri biliyorsun ama daha fazla araştırma yapmalısın. 🔍';
+            story += 'Yolculuğun devam ediyor. Her gün yeni bir fırsat, her an bir başlangıç... 🌱';
         } else {
-            story += 'Resmi kaynakları ve belgeleri incelemeye başla. Bilgi güçtür! 📖';
+            story += 'Hatırla: En uzun yolculuk bile tek bir adımla başlar. Sen de o ilk adımı attın! 🚀';
         }
         
         return story;
@@ -277,17 +297,17 @@ class MuslimTest {
 
     getScoreMessage(score) {
         if (score >= 90) {
-            return "AKP dönemindeki kararları çok iyi biliyorsun! 📚";
+            return "Günlük hayatta Kur'an öğretilerinin çoğunu uyguluyorsun! 🌟";
         } else if (score >= 75) {
-            return "Önemli gelişmeleri takip ediyorsun 📊";
+            return "İslami değerleri hayatına yansıtmaya çalışıyorsun 💚";
         } else if (score >= 60) {
-            return "Genel bir fikrin var ama bazı detaylar eksik 📖";
+            return "İyi bir yoldasın, gelişime her zaman açıksın 🌱";
         } else if (score >= 45) {
-            return "Birçok önemli karardan habersiz kalmışsın 🔍";
+            return "Bazı alanlarda gelişim fırsatların var 📚";
         } else if (score >= 30) {
-            return "AKP dönemi kararlarını daha fazla araştırmalısın 📋";
+            return "Küçük adımlar büyük değişimler yaratır ✨";
         } else {
-            return "Bu dönemdeki gelişmeleri öğrenmen gerekiyor 📰";
+            return "Her yolculuk bir adımla başlar, sen de başlangıçtasın 🚀";
         }
     }
 
@@ -381,7 +401,7 @@ class MuslimTest {
 
     shareWhatsApp() {
         const score = this.calculateTotalScore();
-        const text = `🏛️ "AKP Dönemi: Kararlar ve Sonuçlar" testinde %${score} doğru yaptım! Sen ne kadar biliyorsun?`;
+        const text = `🌙 "Ne Kadar Müslümansın?" testinde %${score} puan aldım! Sen kaç alacaksın?`;
         const url = window.location.href;
         const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + '\n\n' + url)}`;
         window.open(whatsappUrl, '_blank');
@@ -389,7 +409,7 @@ class MuslimTest {
 
     shareTwitter() {
         const score = this.calculateTotalScore();
-        const text = `🏛️ "AKP Dönemi: Kararlar ve Sonuçlar" testinde %${score} doğru yaptım! Sen ne kadar biliyorsun?`;
+        const text = `🌙 "Ne Kadar Müslümansın?" testinde %${score} puan aldım! Sen kaç alacaksın?`;
         const url = window.location.href;
         const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
         window.open(twitterUrl, '_blank');
@@ -440,6 +460,153 @@ class MuslimTest {
 
     restart() {
         this.showScreen('welcome-screen');
+    }
+
+    generateStoryImage() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1080;  // Instagram story size
+        canvas.height = 1920;
+        const ctx = canvas.getContext('2d');
+        
+        // Get test name and colors
+        const testName = document.querySelector('.title').textContent;
+        const totalScore = this.calculateTotalScore();
+        
+        // Determine colors based on test
+        let gradient1, gradient2, accentColor;
+        if (testName.includes('Müslüman')) {
+            gradient1 = '#29a19c';
+            gradient2 = '#2c5f2d';
+            accentColor = '#29a19c';
+        } else if (testName.includes('AKP')) {
+            gradient1 = '#e67e22';
+            gradient2 = '#d35400';
+            accentColor = '#e67e22';
+        } else {
+            gradient1 = '#e74c3c';
+            gradient2 = '#c0392b';
+            accentColor = '#e74c3c';
+        }
+        
+        // Background gradient
+        const bgGradient = ctx.createLinearGradient(0, 0, 0, 1920);
+        bgGradient.addColorStop(0, '#1a1a2e');
+        bgGradient.addColorStop(1, '#16213e');
+        ctx.fillStyle = bgGradient;
+        ctx.fillRect(0, 0, 1080, 1920);
+        
+        // Top accent bar
+        const accentGradient = ctx.createLinearGradient(0, 0, 1080, 0);
+        accentGradient.addColorStop(0, gradient1);
+        accentGradient.addColorStop(1, gradient2);
+        ctx.fillStyle = accentGradient;
+        ctx.fillRect(0, 0, 1080, 120);
+        
+        // Test emoji/icon
+        ctx.font = 'bold 180px Arial';
+        ctx.textAlign = 'center';
+        const emoji = testName.includes('Müslüman') ? '🌙' : (testName.includes('AKP') ? '🏛️' : '🇹🇷');
+        ctx.fillText(emoji, 540, 380);
+        
+        // Test name
+        ctx.font = 'bold 68px Arial';
+        ctx.fillStyle = '#eaeaea';
+        ctx.textAlign = 'center';
+        const lines = this.wrapText(ctx, testName, 900);
+        lines.forEach((line, i) => {
+            ctx.fillText(line, 540, 520 + (i * 80));
+        });
+        
+        // Score circle
+        ctx.beginPath();
+        ctx.arc(540, 960, 220, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.fill();
+        ctx.strokeStyle = accentColor;
+        ctx.lineWidth = 15;
+        ctx.stroke();
+        
+        // Score percentage
+        ctx.font = 'bold 140px Arial';
+        ctx.fillStyle = accentColor;
+        ctx.textAlign = 'center';
+        ctx.fillText(`${totalScore}%`, 540, 1000);
+        
+        // Score label
+        ctx.font = '48px Arial';
+        ctx.fillStyle = '#aaabb8';
+        ctx.fillText('Skorun', 540, 850);
+        
+        // Stars based on score
+        const stars = this.getEmojiRating(totalScore).emoji;
+        ctx.font = '80px Arial';
+        ctx.fillText(stars, 540, 1140);
+        
+        // Category scores
+        ctx.font = 'bold 42px Arial';
+        ctx.fillStyle = '#eaeaea';
+        ctx.textAlign = 'left';
+        ctx.fillText('Kategori Skorların:', 140, 1320);
+        
+        let yPos = 1400;
+        Object.keys(this.categoryScores).forEach(category => {
+            const catData = this.categoryScores[category];
+            const percentage = Math.round((catData.score / catData.max) * 100);
+            
+            // Category name
+            ctx.font = '38px Arial';
+            ctx.fillStyle = '#aaabb8';
+            ctx.fillText(category, 140, yPos);
+            
+            // Score
+            ctx.font = 'bold 38px Arial';
+            ctx.fillStyle = accentColor;
+            ctx.textAlign = 'right';
+            ctx.fillText(`${percentage}%`, 940, yPos);
+            ctx.textAlign = 'left';
+            
+            yPos += 70;
+        });
+        
+        // Call to action
+        ctx.font = 'bold 52px Arial';
+        ctx.fillStyle = '#eaeaea';
+        ctx.textAlign = 'center';
+        ctx.fillText('Sen de test ol! 👇', 540, 1780);
+        
+        // Bottom bar
+        ctx.fillStyle = accentGradient;
+        ctx.fillRect(0, 1800, 1080, 120);
+        
+        // Download
+        canvas.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `test-sonucu-${totalScore}.png`;
+            a.click();
+            URL.revokeObjectURL(url);
+            this.showToast('Story görseli indirildi! 📸');
+        });
+    }
+    
+    wrapText(ctx, text, maxWidth) {
+        const words = text.split(' ');
+        const lines = [];
+        let currentLine = words[0];
+        
+        for (let i = 1; i < words.length; i++) {
+            const word = words[i];
+            const width = ctx.measureText(currentLine + " " + word).width;
+            if (width < maxWidth) {
+                currentLine += " " + word;
+            } else {
+                lines.push(currentLine);
+                currentLine = word;
+            }
+        }
+        lines.push(currentLine);
+        return lines;
     }
 }
 

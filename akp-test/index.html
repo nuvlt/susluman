@@ -55,6 +55,10 @@
                 <button class="next-button" id="next-button" onclick="app.nextQuestion()">
                     Sonraki Soru →
                 </button>
+                <button class="share-question-btn" id="share-question-btn" onclick="app.shareCurrentQuestion()">
+                    📤 Bu Soruyu Arkadaşına Sor
+                </button>
+
                 
                 <div class="skip-timer" id="skip-timer">
                     <div>Otomatik geçiş...</div>
@@ -86,6 +90,9 @@
                         </button>
                         <button class="btn btn-twitter" onclick="app.shareTwitter()">
                             Twitter/X
+                        </button>
+                        <button class="btn btn-instagram" onclick="app.generateStoryImage()">
+                            📸 Story İndir
                         </button>
                         <button class="btn btn-copy" onclick="app.copyLink()">
                             Link Kopyala
