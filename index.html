@@ -31,53 +31,6 @@
             line-height: 1.6;
         }
 
-        .mobile-test-tabs {
-            display: none;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(37, 39, 77, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 12px;
-            justify-content: center;
-            gap: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .tab-btn {
-            font-size: 2rem;
-            padding: 10px 20px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid transparent;
-        }
-
-        .tab-btn:hover, .tab-btn.active {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.1);
-            border-color: var(--accent);
-        }
-
-        @media (max-width: 768px) {
-            .mobile-test-tabs {
-                display: flex;
-            }
-            
-            .header {
-                margin-top: 20px;
-            }
-            
-            .tests-grid {
-                scroll-margin-top: 80px;
-            }
-            
-            .test-card {
-                scroll-margin-top: 80px;
-            }
-        }
-
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -323,13 +276,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Mobile Test Tabs -->
-        <div class="mobile-test-tabs">
-            <a href="#muslim" class="tab-btn active">🌙</a>
-            <a href="#turkey" class="tab-btn">🇹🇷</a>
-            <a href="#akp" class="tab-btn">🏛️</a>
-        </div>
-        
         <div class="header">
             <h1 class="main-title">🎯 Farkındalık Testleri</h1>
             <p class="subtitle">Kendinizi ve ülkenizi ne kadar tanıyorsunuz?</p>
@@ -337,7 +283,7 @@
 
         <div class="tests-grid">
             <!-- İslami Test -->
-            <div class="test-card" id="muslim">
+            <div class="test-card">
                 <span class="icon">🌙</span>
                 <h2 class="test-title">Ne Kadar Müslümansın?</h2>
                 <p class="test-description">
@@ -354,7 +300,7 @@
             </div>
 
             <!-- Türkiye Genel -->
-            <div class="test-card political" id="turkey">
+            <div class="test-card political">
                 <span class="icon">🇹🇷</span>
                 <h2 class="test-title">Türkiye'nin 20 Yılı</h2>
                 <p class="test-description">
@@ -371,7 +317,7 @@
             </div>
 
             <!-- AKP Dönemi -->
-            <div class="test-card akp" id="akp">
+            <div class="test-card akp">
                 <span class="icon">🏛️</span>
                 <h2 class="test-title">AKP Dönemi</h2>
                 <p class="test-description">
@@ -392,46 +338,5 @@
             <p>Tüm veriler resmi kaynaklardan alınmıştır.</p>
         </div>
     </div>
-    
-    <script>
-        // Mobile tab navigation
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Remove active class from all
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                
-                // Add active to clicked
-                this.classList.add('active');
-                
-                // Scroll to target
-                const target = this.getAttribute('href').substring(1);
-                const element = document.getElementById(target);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            });
-        });
-        
-        // Update active tab on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.id;
-                    document.querySelectorAll('.tab-btn').forEach(btn => {
-                        btn.classList.remove('active');
-                        if (btn.getAttribute('href') === `#${id}`) {
-                            btn.classList.add('active');
-                        }
-                    });
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        document.querySelectorAll('.test-card').forEach(card => {
-            observer.observe(card);
-        });
-    </script>
 </body>
 </html>
