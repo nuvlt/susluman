@@ -25,7 +25,7 @@ const questions = [
             { text: "Henüz üretim başlamadı", score: 0 }
         ],
         feedback: "Güncel üretim yaklaşık 5 milyon m³/gün civarında.",
-        info: "Keşif: 540 milyar m³ | Üretim: 2023'te başladı | Türkiye günlük tüketimi: ~150 milyon m³ | Karşılama: %3",
+        info: "Seçimlerde hep kullanıldı halbuki | Üretim: 2023'te başladı | Türkiye günlük tüketimi: ~150 milyon m³ | Karşılama: %3",
         source: "Kaynak: TPAO, Enerji Bakanlığı 2024"
     },
     {
@@ -39,7 +39,7 @@ const questions = [
             { text: "200+ milyar TL", score: 10, correct: true }
         ],
         feedback: "1999-2023 arası toplanan deprem vergileri 200+ milyar TL'yi geçti.",
-        info: "Toplanan: 200+ milyar TL | Deprem fonuna aktarılan: Belirsiz | 6 Şubat 2023 depremi sonrası tartışma konusu oldu",
+        info: "Toplanan: 200+ milyar TL | Deprem fonuna aktarılan: Belirsiz | Paranın nereye gittiği belli değil",
         source: "Kaynak: Hazine, TBMM bütçe raporları"
     },
     {
@@ -53,7 +53,7 @@ const questions = [
             { text: "%50", score: 10, correct: true }
         ],
         feedback: "2023'te TCMB faizi %50'ye kadar yükseldi.",
-        info: "2021: %14 | 2022: %9 (düşürüldü) | 2023: %50 | Enflasyon: %64 | Gerçek faiz hala negatif",
+        info: "2021: %14 | 2022: %9 (düşürüldü) | 2023: %50 | Enflasyon: %64 | Nas suresi yalan oldu",
         source: "Kaynak: TCMB"
     },
     {
