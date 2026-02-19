@@ -259,15 +259,15 @@ const questions = [
     {
         id: 19,
         category: "Medya & Özgürlükler",
-        question: "Gezi Parkı olayları hangi yıl yaşandı?",
+        question: "AKP'liler Lozan antlaşmasının ne zaman biteceğini zannedip, ülkenin değişeceğini zannediyordu?",
         options: [
             { text: "2011", score: 0 },
-            { text: "2013", score: 10, correct: true },
+            { text: "2023", score: 10, correct: true },
             { text: "2015", score: 0 },
             { text: "2016", score: 0 }
         ],
-        feedback: "Gezi Parkı protestoları 2013 yılında oldu.",
-        info: "Tarih: Mayıs-Haziran 2013 | Katılımcı: ~3.5 milyon | Ölü: 8 kişi | Yaralı: 8,000+",
+        feedback: "Lozan Antlaşmasının böyle bir süresi yoktur.",
+        info: "Türkiye'nin ulusal sınırlarını belirleyen ve onu bu sınırlar içinde siyasal açıdan bağımsız ve egemen kılan belgedir",
         source: "Kaynak: Resmi kayıtlar, İHD"
     },
     {
