@@ -101,7 +101,7 @@ const questions = [
     {
         id: 8,
         category: "Dış Politika",
-        question: "Türkiye ile ABD arasında Rahip Brunson krizi ne zaman yaşandı?",
+        question: "AKP bizden alamazsınız dediği, Rahip Brunson'u ne zaman ABD'e gönderdi?",
         options: [
             { text: "2015", score: 0 },
             { text: "2016", score: 0 },
@@ -115,7 +115,7 @@ const questions = [
     {
         id: 9,
         category: "Dış Politika",
-        question: "Türkiye-Mısır ilişkileri hangi yıl normalleşmeye başladı?",
+        question: "RTE'nin önce katil sisi dediği Mısır Başkanı, ne zaman kardeşim sisi oldu?",
         options: [
             { text: "2019", score: 0 },
             { text: "2021", score: 10, correct: true },
@@ -129,7 +129,7 @@ const questions = [
     {
         id: 10,
         category: "Dış Politika",
-        question: "Türkiye İsrail ile ticaret hacmi 2023'te ne oldu?",
+        question: "AKP'nin lafta düşman dediği İsrail ile Türkiye'deki ticaret hacmi 2023'te ne oldu?",
         options: [
             { text: "Tamamen durdu", score: 0 },
             { text: "Yarıya indi", score: 0 },
@@ -159,7 +159,7 @@ const questions = [
     {
         id: 12,
         category: "Eğitim & Aile",
-        question: "Cumhurbaşkanı'nın çocuklarından Bilal Erdoğan nerede üniversite eğitimi aldı?",
+        question: "Recep Tayyip Erdoğan'ın çocuklarından Bilal Erdoğan nerede üniversite eğitimi aldı?",
         options: [
             { text: "Türkiye'de", score: 0 },
             { text: "ABD'de", score: 10, correct: true },
@@ -173,7 +173,7 @@ const questions = [
     {
         id: 13,
         category: "Eğitim & Aile",
-        question: "Esra Erdoğan (Albayrak) hangi üniversiteden mezun?",
+        question: "Recep Tayyip Erdoğan'ın kızı Esra Erdoğan (Albayrak) hangi üniversiteden mezun?",
         options: [
             { text: "Boğaziçi Üniversitesi", score: 0 },
             { text: "İstanbul Üniversitesi", score: 0 },
@@ -201,7 +201,7 @@ const questions = [
     {
         id: 15,
         category: "Eğitim & Aile",
-        question: "Türkiye PISA sınavlarında son 10 yılda ne oldu?",
+        question: "Türkiye PISA (Uluslararası öğrenci değerlendirme) sınavlarında son 10 yılda ne oldu?",
         options: [
             { text: "İlk 10'a girdi", score: 0 },
             { text: "Yükseldi", score: 0 },
