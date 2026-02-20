@@ -145,10 +145,10 @@ class MuslimTest {
             timerFill.classList.add('animate');
         }, 50);
         
-        // Auto advance after 5 seconds
+        // Auto advance after 10 seconds
         this.autoNextTimer = setTimeout(() => {
             this.nextQuestion();
-        }, 5000);
+        }, 10000);
     }
 
     showFeedback(question) {
