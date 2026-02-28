@@ -25,7 +25,7 @@ const questions = [
             { text: "Henüz üretim başlamadı", score: 0 }
         ],
         feedback: "Güncel üretim yaklaşık 5 milyon m³/gün civarında.",
-        info: "Seçimlerde hep kullanıldı halbuki | Üretim: 2023'te başladı | Türkiye günlük tüketimi: ~150 milyon m³ | Karşılama: %3",
+        info: "Keşif: 540 milyar m³ | Üretim: 2023'te başladı | Türkiye günlük tüketimi: ~150 milyon m³ | Karşılama: %3",
         source: "Kaynak: TPAO, Enerji Bakanlığı 2024"
     },
     {
@@ -39,7 +39,7 @@ const questions = [
             { text: "200+ milyar TL", score: 10, correct: true }
         ],
         feedback: "1999-2023 arası toplanan deprem vergileri 200+ milyar TL'yi geçti.",
-        info: "Toplanan: 200+ milyar TL | Deprem fonuna aktarılan: Belirsiz | Paranın nereye gittiği belli değil",
+        info: "Toplanan: 200+ milyar TL | Deprem fonuna aktarılan: Belirsiz | 6 Şubat 2023 depremi sonrası tartışma konusu oldu",
         source: "Kaynak: Hazine, TBMM bütçe raporları"
     },
     {
@@ -53,7 +53,7 @@ const questions = [
             { text: "%50", score: 10, correct: true }
         ],
         feedback: "2023'te TCMB faizi %50'ye kadar yükseldi.",
-        info: "2021: %14 | 2022: %9 (düşürüldü) | 2023: %50 | Enflasyon: %64 | Nas suresi yalan oldu",
+        info: "2021: %14 | 2022: %9 (düşürüldü) | 2023: %50 | Enflasyon: %64 | Gerçek faiz hala negatif",
         source: "Kaynak: TCMB"
     },
     {
@@ -89,10 +89,12 @@ const questions = [
     {
         id: 7,
         category: "Dış Politika",
-        question: "Abdullah Öcalan'ı AKP ve MHP dışarı çıkarmaya çalışıyor mu?",
+        question: "Abdullah Öcalan son olarak ne zaman avukatlarıyla görüştü?",
         options: [
-            { text: "Evet", score: 10, correct: true },
-            { text: "Hayır", score: 0 }
+            { text: "2019", score: 0 },
+            { text: "2021", score: 0 },
+            { text: "2023", score: 10, correct: true },
+            { text: "Hala görüşemiyor", score: 0 }
         ],
         feedback: "2023'te DEM Parti heyeti ile görüşme yapıldı.",
         info: "2015-2023: Uzun görüşme yasağı | 2023: Yeni süreç | 2024: Meclis konuşması gündem oldu",
@@ -101,7 +103,7 @@ const questions = [
     {
         id: 8,
         category: "Dış Politika",
-        question: "AKP bizden alamazsınız dediği, Rahip Brunson'u ne zaman ABD'e gönderdi?",
+        question: "Türkiye ile ABD arasında Rahip Brunson krizi ne zaman yaşandı?",
         options: [
             { text: "2015", score: 0 },
             { text: "2016", score: 0 },
@@ -115,7 +117,7 @@ const questions = [
     {
         id: 9,
         category: "Dış Politika",
-        question: "RTE'nin önce katil sisi dediği Mısır Başkanı, ne zaman kardeşim sisi oldu?",
+        question: "Türkiye-Mısır ilişkileri hangi yıl normalleşmeye başladı?",
         options: [
             { text: "2019", score: 0 },
             { text: "2021", score: 10, correct: true },
@@ -129,7 +131,7 @@ const questions = [
     {
         id: 10,
         category: "Dış Politika",
-        question: "AKP'nin lafta düşman dediği İsrail ile Türkiye'deki ticaret hacmi 2023'te ne oldu?",
+        question: "Türkiye İsrail ile ticaret hacmi 2023'te ne oldu?",
         options: [
             { text: "Tamamen durdu", score: 0 },
             { text: "Yarıya indi", score: 0 },
@@ -159,7 +161,7 @@ const questions = [
     {
         id: 12,
         category: "Eğitim & Aile",
-        question: "Recep Tayyip Erdoğan'ın çocuklarından Bilal Erdoğan nerede üniversite eğitimi aldı?",
+        question: "Cumhurbaşkanı'nın çocuklarından Bilal Erdoğan nerede üniversite eğitimi aldı?",
         options: [
             { text: "Türkiye'de", score: 0 },
             { text: "ABD'de", score: 10, correct: true },
@@ -173,7 +175,7 @@ const questions = [
     {
         id: 13,
         category: "Eğitim & Aile",
-        question: "Recep Tayyip Erdoğan'ın kızı Esra Erdoğan (Albayrak) hangi üniversiteden mezun?",
+        question: "Esra Erdoğan (Albayrak) hangi üniversiteden mezun?",
         options: [
             { text: "Boğaziçi Üniversitesi", score: 0 },
             { text: "İstanbul Üniversitesi", score: 0 },
@@ -201,7 +203,7 @@ const questions = [
     {
         id: 15,
         category: "Eğitim & Aile",
-        question: "Türkiye PISA (Uluslararası öğrenci değerlendirme) sınavlarında son 10 yılda ne oldu?",
+        question: "Türkiye PISA sınavlarında son 10 yılda ne oldu?",
         options: [
             { text: "İlk 10'a girdi", score: 0 },
             { text: "Yükseldi", score: 0 },
@@ -259,15 +261,15 @@ const questions = [
     {
         id: 19,
         category: "Medya & Özgürlükler",
-        question: "AKP'liler Lozan antlaşmasının ne zaman biteceğini zannedip, ülkenin değişeceğini zannediyordu?",
+        question: "Gezi Parkı olayları hangi yıl yaşandı?",
         options: [
             { text: "2011", score: 0 },
-            { text: "2023", score: 10, correct: true },
+            { text: "2013", score: 10, correct: true },
             { text: "2015", score: 0 },
             { text: "2016", score: 0 }
         ],
-        feedback: "Lozan Antlaşmasının böyle bir süresi yoktur.",
-        info: "Türkiye'nin ulusal sınırlarını belirleyen ve onu bu sınırlar içinde siyasal açıdan bağımsız ve egemen kılan belgedir",
+        feedback: "Gezi Parkı protestoları 2013 yılında oldu.",
+        info: "Tarih: Mayıs-Haziran 2013 | Katılımcı: ~3.5 milyon | Ölü: 8 kişi | Yaralı: 8,000+",
         source: "Kaynak: Resmi kayıtlar, İHD"
     },
     {

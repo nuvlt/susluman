@@ -90,6 +90,7 @@ class MuslimTest {
         // Reset feedback and buttons
         document.getElementById('feedback').classList.remove('show');
         document.getElementById('next-button').classList.remove('show');
+        document.getElementById('share-question-btn').classList.remove('show');
         document.getElementById('skip-timer').classList.remove('show');
         
         // Clear any existing timer
@@ -145,10 +146,10 @@ class MuslimTest {
             timerFill.classList.add('animate');
         }, 50);
         
-        // Auto advance after 10 seconds
+        // Auto advance after 5 seconds
         this.autoNextTimer = setTimeout(() => {
             this.nextQuestion();
-        }, 10000);
+        }, 5000);
     }
 
     showFeedback(question) {
@@ -158,6 +159,32 @@ class MuslimTest {
             <p class="verse">${question.verse}</p>
         `;
         feedbackDiv.classList.add('show');
+        
+        // Show share question button
+        document.getElementById('share-question-btn').classList.add('show');
+    }
+
+    shareCurrentQuestion() {
+        const question = questions[this.currentQuestion];
+        const testName = document.querySelector('.title').textContent;
+        const text = `❓ ${testName}\n\n${question.question}\n\nSen ne düşünüyorsun? Teste katıl!`;
+        const url = window.location.href;
+        
+        // Copy to clipboard
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text + '\n\n' + url).then(() => {
+                this.showToast('Soru kopyalandı! Arkadaşına gönder 📤');
+            });
+        } else {
+            // Fallback
+            const textArea = document.createElement('textarea');
+            textArea.value = text + '\n\n' + url;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            this.showToast('Soru kopyalandı! Arkadaşına gönder 📤');
+        }
     }
 
     nextQuestion() {
@@ -433,6 +460,153 @@ class MuslimTest {
 
     restart() {
         this.showScreen('welcome-screen');
+    }
+
+    generateStoryImage() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1080;  // Instagram story size
+        canvas.height = 1920;
+        const ctx = canvas.getContext('2d');
+        
+        // Get test name and colors
+        const testName = document.querySelector('.title').textContent;
+        const totalScore = this.calculateTotalScore();
+        
+        // Determine colors based on test
+        let gradient1, gradient2, accentColor;
+        if (testName.includes('Müslüman')) {
+            gradient1 = '#29a19c';
+            gradient2 = '#2c5f2d';
+            accentColor = '#29a19c';
+        } else if (testName.includes('AKP')) {
+            gradient1 = '#e67e22';
+            gradient2 = '#d35400';
+            accentColor = '#e67e22';
+        } else {
+            gradient1 = '#e74c3c';
+            gradient2 = '#c0392b';
+            accentColor = '#e74c3c';
+        }
+        
+        // Background gradient
+        const bgGradient = ctx.createLinearGradient(0, 0, 0, 1920);
+        bgGradient.addColorStop(0, '#1a1a2e');
+        bgGradient.addColorStop(1, '#16213e');
+        ctx.fillStyle = bgGradient;
+        ctx.fillRect(0, 0, 1080, 1920);
+        
+        // Top accent bar
+        const accentGradient = ctx.createLinearGradient(0, 0, 1080, 0);
+        accentGradient.addColorStop(0, gradient1);
+        accentGradient.addColorStop(1, gradient2);
+        ctx.fillStyle = accentGradient;
+        ctx.fillRect(0, 0, 1080, 120);
+        
+        // Test emoji/icon
+        ctx.font = 'bold 180px Arial';
+        ctx.textAlign = 'center';
+        const emoji = testName.includes('Müslüman') ? '🌙' : (testName.includes('AKP') ? '🏛️' : '🇹🇷');
+        ctx.fillText(emoji, 540, 380);
+        
+        // Test name
+        ctx.font = 'bold 68px Arial';
+        ctx.fillStyle = '#eaeaea';
+        ctx.textAlign = 'center';
+        const lines = this.wrapText(ctx, testName, 900);
+        lines.forEach((line, i) => {
+            ctx.fillText(line, 540, 520 + (i * 80));
+        });
+        
+        // Score circle
+        ctx.beginPath();
+        ctx.arc(540, 960, 220, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.fill();
+        ctx.strokeStyle = accentColor;
+        ctx.lineWidth = 15;
+        ctx.stroke();
+        
+        // Score percentage
+        ctx.font = 'bold 140px Arial';
+        ctx.fillStyle = accentColor;
+        ctx.textAlign = 'center';
+        ctx.fillText(`${totalScore}%`, 540, 1000);
+        
+        // Score label
+        ctx.font = '48px Arial';
+        ctx.fillStyle = '#aaabb8';
+        ctx.fillText('Skorun', 540, 850);
+        
+        // Stars based on score
+        const stars = this.getEmojiRating(totalScore).emoji;
+        ctx.font = '80px Arial';
+        ctx.fillText(stars, 540, 1140);
+        
+        // Category scores
+        ctx.font = 'bold 42px Arial';
+        ctx.fillStyle = '#eaeaea';
+        ctx.textAlign = 'left';
+        ctx.fillText('Kategori Skorların:', 140, 1320);
+        
+        let yPos = 1400;
+        Object.keys(this.categoryScores).forEach(category => {
+            const catData = this.categoryScores[category];
+            const percentage = Math.round((catData.score / catData.max) * 100);
+            
+            // Category name
+            ctx.font = '38px Arial';
+            ctx.fillStyle = '#aaabb8';
+            ctx.fillText(category, 140, yPos);
+            
+            // Score
+            ctx.font = 'bold 38px Arial';
+            ctx.fillStyle = accentColor;
+            ctx.textAlign = 'right';
+            ctx.fillText(`${percentage}%`, 940, yPos);
+            ctx.textAlign = 'left';
+            
+            yPos += 70;
+        });
+        
+        // Call to action
+        ctx.font = 'bold 52px Arial';
+        ctx.fillStyle = '#eaeaea';
+        ctx.textAlign = 'center';
+        ctx.fillText('Sen de test ol! 👇', 540, 1780);
+        
+        // Bottom bar
+        ctx.fillStyle = accentGradient;
+        ctx.fillRect(0, 1800, 1080, 120);
+        
+        // Download
+        canvas.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `test-sonucu-${totalScore}.png`;
+            a.click();
+            URL.revokeObjectURL(url);
+            this.showToast('Story görseli indirildi! 📸');
+        });
+    }
+    
+    wrapText(ctx, text, maxWidth) {
+        const words = text.split(' ');
+        const lines = [];
+        let currentLine = words[0];
+        
+        for (let i = 1; i < words.length; i++) {
+            const word = words[i];
+            const width = ctx.measureText(currentLine + " " + word).width;
+            if (width < maxWidth) {
+                currentLine += " " + word;
+            } else {
+                lines.push(currentLine);
+                currentLine = word;
+            }
+        }
+        lines.push(currentLine);
+        return lines;
     }
 }
 

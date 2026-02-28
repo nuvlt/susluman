@@ -56,6 +56,10 @@
                     Sonraki Soru →
                 </button>
                 
+                <button class="share-question-btn" id="share-question-btn" onclick="app.shareCurrentQuestion()">
+                    📤 Bu Soruyu Arkadaşına Sor
+                </button>
+                
                 <div class="skip-timer" id="skip-timer">
                     <div>Otomatik geçiş...</div>
                     <div class="timer-bar">
@@ -82,13 +86,16 @@
                     <h3>Sonucunu Paylaş</h3>
                     <div class="share-buttons">
                         <button class="btn btn-whatsapp" onclick="app.shareWhatsApp()">
-                            WhatsApp
+                            📱 WhatsApp
                         </button>
                         <button class="btn btn-twitter" onclick="app.shareTwitter()">
-                            Twitter/X
+                            🐦 Twitter/X
+                        </button>
+                        <button class="btn btn-instagram" onclick="app.generateStoryImage()">
+                            📸 Story İndir
                         </button>
                         <button class="btn btn-copy" onclick="app.copyLink()">
-                            Link Kopyala
+                            🔗 Link Kopyala
                         </button>
                     </div>
                 </div>
