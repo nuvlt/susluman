@@ -1,6 +1,6 @@
 # 🎯 Farkındalık Testleri
 
-Üç farklı farkındalık testi.
+Dört farklı farkındalık testi.
 
 ## 🌙 Ne Kadar Müslümansın?
 20 soruluk İslami davranış farkındalık testi.
@@ -10,6 +10,9 @@
 
 ## 🏛️ AKP Dönemi: Kararlar ve Sonuçlar
 AKP iktidarındaki önemli kararlar ve sonuçları - Sadece resmi kaynaklı veriler.
+
+## 🐺 Koyun musun, Kurt musun?
+Sürüden ayrı düşünebiliyor musun? Kendi kararlarını kendin mi alıyorsun? Sert & Doğrudan sorular.
 
 ## 🚀 Kurulum
 
@@ -30,7 +33,8 @@ GitHub'a yükleyin, Vercel otomatik deploy edecek.
 ├── index.html
 ├── muslim-test/
 ├── turkey-test/
-└── akp-test/
+├── akp-test/
+└── koyun-kurt-test/
 ```
 
 ## ⚠️ Önemli
