@@ -154,9 +154,19 @@ class MuslimTest {
 
     showFeedback(question) {
         const feedbackDiv = document.getElementById('feedback');
+        
+        // Check if answer was correct
+        const selectedAnswer = this.answers[this.answers.length - 1];
+        const isCorrect = selectedAnswer.score === 10;
+        
+        const resultIcon = isCorrect ? '✅' : '❌';
+        const resultText = isCorrect ? 'Doğru!' : 'Yanlış!';
+        
         feedbackDiv.innerHTML = `
-            <p>${question.feedback}</p>
-            <p class="verse">${question.verse}</p>
+            <div style="font-size: 1.5rem; margin-bottom: 10px;">${resultIcon} ${resultText}</div>
+            <p><strong>${question.feedback}</strong></p>
+            <p style="margin-top: 10px;">${question.info}</p>
+            <p class="verse">${question.source}</p>
         `;
         feedbackDiv.classList.add('show');
         
