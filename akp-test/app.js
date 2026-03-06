@@ -142,14 +142,14 @@ class MuslimTest {
         timerFill.style.transition = 'none';
         timerFill.style.width = '100%';
         setTimeout(() => {
-            timerFill.style.transition = 'width 5s linear';
+            timerFill.style.transition = 'width 8s linear';
             timerFill.classList.add('animate');
         }, 50);
         
         // Auto advance after 5 seconds
         this.autoNextTimer = setTimeout(() => {
             this.nextQuestion();
-        }, 5000);
+        }, 8000);
     }
 
     showFeedback(question) {

@@ -142,20 +142,42 @@ class MuslimTest {
         timerFill.style.transition = 'none';
         timerFill.style.width = '100%';
         setTimeout(() => {
-            timerFill.style.transition = 'width 5s linear';
+            timerFill.style.transition = 'width 8s linear';
             timerFill.classList.add('animate');
         }, 50);
         
         // Auto advance after 5 seconds
         this.autoNextTimer = setTimeout(() => {
             this.nextQuestion();
-        }, 5000);
+        }, 8000);
     }
 
     showFeedback(question) {
         const feedbackDiv = document.getElementById('feedback');
+        
+        // Get the selected answer's score
+        const selectedAnswer = this.answers[this.answers.length - 1];
+        const score = selectedAnswer.score;
+        
+        // Score-based emoji and message
+        let emoji, message;
+        if (score === 10) {
+            emoji = '⭐';
+            message = 'Mükemmel!';
+        } else if (score >= 7) {
+            emoji = '👍';
+            message = 'İyi!';
+        } else if (score >= 3) {
+            emoji = '🤔';
+            message = 'Gelişebilir';
+        } else {
+            emoji = '💭';
+            message = 'Dikkat et';
+        }
+        
         feedbackDiv.innerHTML = `
-            <p>${question.feedback}</p>
+            <div style="font-size: 1.5rem; margin-bottom: 10px;">${emoji} ${message}</div>
+            <p><strong>${question.feedback}</strong></p>
             <p class="verse">${question.verse}</p>
         `;
         feedbackDiv.classList.add('show');
